@@ -2,9 +2,7 @@
 {
     public class DateTimeBroker : IDateTimeBroker
     {
-        public DateTimeOffset getCurrentDateTime()
-        {
-            return DateTime.UtcNow;
-        }
+        public DateTimeOffset getCurrentDateTime() => DateTime.UtcNow;
+        
     }
 }
