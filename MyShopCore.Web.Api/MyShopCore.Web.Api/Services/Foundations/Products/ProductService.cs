@@ -23,6 +23,7 @@ namespace MyShopCore.Web.Api.Services.Foundations.Products
         {
             this.loggingBroker.LogInformation($"{product.Title} added");
 
+            product.Id = Guid.NewGuid();
             product.Created =this.dateTimeBroker.getCurrentDateTime();
             product.CreatedBy = Guid.NewGuid();
 

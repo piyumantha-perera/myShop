@@ -17,6 +17,7 @@ namespace MyShopCore.Web.Api.Brokers.Storages
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string connectionString = this.configuration.GetConnectionString("DefaultConnection");
+            optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
             optionsBuilder.UseSqlServer(connectionString);
         }
