@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyShopCore.Web.Api.Models.Products;
+using MyShopCore.Web.Api.Models.Products.Exceptions;
 using MyShopCore.Web.Api.Services.Foundations.Products;
 
 namespace MyShopCore.Web.Api.Controllers
@@ -26,13 +27,21 @@ namespace MyShopCore.Web.Api.Controllers
         [HttpGet("{id}",Name = "GetSingleProduct")]
         public async ValueTask<IActionResult> GetProductAsync(Guid id)
         {
-            var products = await this.productService.RetrieveProductByIdAsync(id);
-
-            if (products is null)
+            try
+            {
+                var products = await this.productService.RetrieveProductByIdAsync(id);
+                return Ok(products);
+            }
+            catch(InvalidProductIdException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NullProductException ex)
             {
                 return NotFound();
             }
-            return Ok(products);
+
+                    
         }
 
         [HttpPost]
